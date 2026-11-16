@@ -1,3 +1,11 @@
+<label for="search">Pesquisar</label>
+<input
+  id="search"
+  type="search"
+  [formControl]="searchControl"
+  placeholder="Matrícula, marca ou modelo…"
+/>
+
 @if (loading()) {
   <p>A carregar…</p>
 } @else if (error()) {
@@ -7,7 +15,7 @@
     @for (vehicle of vehicles(); track vehicle.id) {
       <li><app-vehicle-card [vehicle]="vehicle" (selected)="onSelected($event)" /></li>
     } @empty {
-      <li>Sem veículos.</li>
+      <li>Nenhum resultado.</li>
     }
   </ul>
 }

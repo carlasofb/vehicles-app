@@ -1,11 +1,21 @@
 import { Component, inject, signal } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import {
+  catchError,
+  debounceTime,
+  distinctUntilChanged,
+  of,
+  startWith,
+  switchMap,
+  tap,
+} from 'rxjs';
 import { Vehicle } from '../vehicle.model';
 import { VehicleCard } from '../vehicle-card/vehicle-card';
 import { VehiclesApi } from '../vehicles-api';
 
 @Component({
-  imports: [VehicleCard],
+  imports: [VehicleCard, ReactiveFormsModule],
   selector: 'app-vehicle-list',
   styleUrl: './vehicle-list.css',
   templateUrl: './vehicle-list.html',
@@ -13,26 +23,33 @@ import { VehiclesApi } from '../vehicles-api';
 export class VehicleList {
   private readonly api = inject(VehiclesApi);
 
-  vehicles = signal<Vehicle[]>([]);
-  loading = signal(true);
+  searchControl = new FormControl('', { nonNullable: true });
+  // declara loading e error ANTES de vehicles: a pipeline corre logo ao criar o componente
+  loading = signal(false);
   error = signal<string | null>(null);
   selectedId = signal<number | null>(null);
 
-  constructor() {
-    this.api
-      .getAll()
-      .pipe(takeUntilDestroyed())
-      .subscribe({
-        next: (vehicles) => {
-          this.vehicles.set(vehicles);
-          this.loading.set(false);
-        },
-        error: () => {
-          this.error.set('Não foi possível carregar os veículos.');
-          this.loading.set(false);
-        },
-      });
-  }
+  vehicles = toSignal(
+    this.searchControl.valueChanges.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      startWith(''),
+      tap(() => {
+        this.loading.set(true);
+        this.error.set(null);
+      }),
+      switchMap((term) =>
+        this.api.search(term).pipe(
+          catchError(() => {
+            this.error.set('Não foi possível carregar os veículos.');
+            return of([] as Vehicle[]);
+          }),
+        ),
+      ),
+      tap(() => this.loading.set(false)),
+    ),
+    { initialValue: [] as Vehicle[] },
+  );
 
   onSelected(id: number) {
     this.selectedId.set(id);

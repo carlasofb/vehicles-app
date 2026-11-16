@@ -11,4 +11,10 @@ export class VehiclesApi {
   getAll(): Observable<Vehicle[]> {
     return this.http.get<Vehicle[]>(this.baseUrl);
   }
+
+  // o JSON Server pesquisa em todos os campos de texto com ?q=
+  search(term: string): Observable<Vehicle[]> {
+    const q = term.trim();
+    return q ? this.http.get<Vehicle[]>(this.baseUrl, { params: { q } }) : this.getAll();
+  }
 }
