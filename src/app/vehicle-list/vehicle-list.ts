@@ -1,6 +1,8 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Vehicle } from '../vehicle.model';
 import { VehicleCard } from '../vehicle-card/vehicle-card';
+import { VehiclesApi } from '../vehicles-api';
 
 @Component({
   imports: [VehicleCard],
@@ -9,36 +11,28 @@ import { VehicleCard } from '../vehicle-card/vehicle-card';
   templateUrl: './vehicle-list.html',
 })
 export class VehicleList {
-  vehicles = signal<Vehicle[]>([
-    {
-      id: 1,
-      plate: 'AA-12-BB',
-      brand: 'Renault',
-      model: 'Clio',
-      year: 2021,
-      status: 'available',
-      mileageKm: 48200,
-    },
-    {
-      id: 2,
-      plate: 'CC-34-DD',
-      brand: 'Peugeot',
-      model: '208',
-      year: 2022,
-      status: 'in_service',
-      mileageKm: 31500,
-    },
-    {
-      id: 3,
-      plate: 'EE-56-FF',
-      brand: 'Volkswagen',
-      model: 'Golf',
-      year: 2019,
-      status: 'maintenance',
-      mileageKm: 96300,
-    },
-  ]);
+  private readonly api = inject(VehiclesApi);
+
+  vehicles = signal<Vehicle[]>([]);
+  loading = signal(true);
+  error = signal<string | null>(null);
   selectedId = signal<number | null>(null);
+
+  constructor() {
+    this.api
+      .getAll()
+      .pipe(takeUntilDestroyed())
+      .subscribe({
+        next: (vehicles) => {
+          this.vehicles.set(vehicles);
+          this.loading.set(false);
+        },
+        error: () => {
+          this.error.set('Não foi possível carregar os veículos.');
+          this.loading.set(false);
+        },
+      });
+  }
 
   onSelected(id: number) {
     this.selectedId.set(id);

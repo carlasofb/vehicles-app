@@ -1,10 +1,16 @@
-<ul class="list">
-  @for (vehicle of vehicles(); track vehicle.id) {
-    <li><app-vehicle-card [vehicle]="vehicle" (selected)="onSelected($event)" /></li>
-  } @empty {
-    <li>Sem veículos.</li>
-  }
-</ul>
+@if (loading()) {
+  <p>A carregar…</p>
+} @else if (error()) {
+  <p role="alert">{{ error() }}</p>
+} @else {
+  <ul class="list">
+    @for (vehicle of vehicles(); track vehicle.id) {
+      <li><app-vehicle-card [vehicle]="vehicle" (selected)="onSelected($event)" /></li>
+    } @empty {
+      <li>Sem veículos.</li>
+    }
+  </ul>
+}
 
 @if (selectedId() !== null) {
   <p>Selecionado: {{ selectedId() }}</p>

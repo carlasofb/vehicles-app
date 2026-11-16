@@ -1,0 +1,76 @@
+{
+  "vehicles": [
+    {
+      "id": 1,
+      "plate": "AA-12-BB",
+      "brand": "Renault",
+      "model": "Clio",
+      "year": 2021,
+      "status": "available",
+      "mileageKm": 48200
+    },
+    {
+      "id": 2,
+      "plate": "CC-34-DD",
+      "brand": "Peugeot",
+      "model": "208",
+      "year": 2022,
+      "status": "in_service",
+      "mileageKm": 31500
+    },
+    {
+      "id": 3,
+      "plate": "EE-56-FF",
+      "brand": "Volkswagen",
+      "model": "Golf",
+      "year": 2019,
+      "status": "maintenance",
+      "mileageKm": 96300
+    },
+    {
+      "id": 4,
+      "plate": "GG-78-HH",
+      "brand": "Toyota",
+      "model": "Corolla",
+      "year": 2023,
+      "status": "available",
+      "mileageKm": 12400
+    },
+    {
+      "id": 5,
+      "plate": "II-90-JJ",
+      "brand": "Ford",
+      "model": "Transit",
+      "year": 2020,
+      "status": "in_service",
+      "mileageKm": 74800
+    },
+    {
+      "id": 6,
+      "plate": "KK-11-LL",
+      "brand": "Mercedes",
+      "model": "Sprinter",
+      "year": 2021,
+      "status": "maintenance",
+      "mileageKm": 88100
+    },
+    {
+      "id": 7,
+      "plate": "MM-22-NN",
+      "brand": "Nissan",
+      "model": "Leaf",
+      "year": 2022,
+      "status": "available",
+      "mileageKm": 25600
+    },
+    {
+      "id": 8,
+      "plate": "OO-33-PP",
+      "brand": "Citroën",
+      "model": "Berlingo",
+      "year": 2018,
+      "status": "in_service",
+      "mileageKm": 121000
+    }
+  ]
+}
