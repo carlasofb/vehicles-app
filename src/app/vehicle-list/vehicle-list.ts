@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import {
   catchError,
   debounceTime,
@@ -22,12 +23,11 @@ import { VehiclesApi } from '../vehicles-api';
 })
 export class VehicleList {
   private readonly api = inject(VehiclesApi);
+  private readonly router = inject(Router);
 
   searchControl = new FormControl('', { nonNullable: true });
-  // declara loading e error ANTES de vehicles: a pipeline corre logo ao criar o componente
   loading = signal(false);
   error = signal<string | null>(null);
-  selectedId = signal<number | null>(null);
 
   vehicles = toSignal(
     this.searchControl.valueChanges.pipe(
@@ -52,6 +52,6 @@ export class VehicleList {
   );
 
   onSelected(id: number) {
-    this.selectedId.set(id);
+    this.router.navigate(['/vehicles', id]);
   }
 }

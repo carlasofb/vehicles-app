@@ -17,4 +17,8 @@ export class VehiclesApi {
     const q = term.trim();
     return q ? this.http.get<Vehicle[]>(this.baseUrl, { params: { q } }) : this.getAll();
   }
+
+  getById(id: number): Observable<Vehicle> {
+    return this.http.get<Vehicle>(`${this.baseUrl}/${id}`);
+  }
 }

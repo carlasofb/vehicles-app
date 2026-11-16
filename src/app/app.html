@@ -1,4 +1,12 @@
-<main>
+<header>
   <h1>Frota</h1>
-  <app-vehicle-list />
+  <nav>
+    <a routerLink="/vehicles">Veículos</a>
+    @if (auth.loggedIn()) {
+      <button type="button" (click)="auth.logout()">Sair</button>
+    }
+  </nav>
+</header>
+<main>
+  <router-outlet />
 </main>

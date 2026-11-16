@@ -1,0 +1,19 @@
+<a routerLink="/vehicles">← Voltar à lista</a>
+
+@if (vehicle(); as v) {
+  <h2>{{ v.brand }} {{ v.model }}</h2>
+  <dl>
+    <dt>Matrícula</dt>
+    <dd>{{ v.plate }}</dd>
+    <dt>Ano</dt>
+    <dd>{{ v.year }}</dd>
+    <dt>Quilómetros</dt>
+    <dd>{{ v.mileageKm | number }} km</dd>
+    <dt>Estado</dt>
+    <dd>{{ v.status }}</dd>
+  </dl>
+} @else if (vehicle() === null) {
+  <p role="alert">Veículo não encontrado.</p>
+} @else {
+  <p>A carregar…</p>
+}

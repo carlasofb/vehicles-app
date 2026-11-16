@@ -5,3 +5,13 @@
   padding: 16px;
   font-family: system-ui, sans-serif;
 }
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+nav {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}

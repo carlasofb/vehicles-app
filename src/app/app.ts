@@ -1,10 +1,13 @@
-import { Component } from '@angular/core';
-import { VehicleList } from './vehicle-list/vehicle-list';
+import { Component, inject } from '@angular/core';
+import { RouterLink, RouterOutlet } from '@angular/router';
+import { Auth } from './auth';
 
 @Component({
-  imports: [VehicleList],
+  imports: [RouterOutlet, RouterLink],
   selector: 'app-root',
   styleUrl: './app.css',
   templateUrl: './app.html',
 })
-export class App {}
+export class App {
+  auth = inject(Auth);
+}
