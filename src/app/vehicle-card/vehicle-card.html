@@ -1,0 +1,10 @@
+<div class="card">
+  <div class="info">
+    <strong>{{ title() }}</strong>
+    <small
+      >{{ vehicle().plate }} · {{ vehicle().year }} · {{ vehicle().mileageKm | number }} km</small
+    >
+  </div>
+  <span [class]="'badge ' + vehicle().status">{{ statusLabel() }}</span>
+  <button type="button" (click)="selected.emit(vehicle().id)">Ver detalhe</button>
+</div>

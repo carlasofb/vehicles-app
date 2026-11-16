@@ -1,0 +1,30 @@
+.card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+.info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.badge {
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+.available {
+  background: #e6f4ea;
+  color: #1e7e34;
+}
+.in_service {
+  background: #e8f0fe;
+  color: #1a56c4;
+}
+.maintenance {
+  background: #fff4e5;
+  color: #8a4b00;
+}

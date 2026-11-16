@@ -1,0 +1,11 @@
+<ul class="list">
+  @for (vehicle of vehicles(); track vehicle.id) {
+    <li><app-vehicle-card [vehicle]="vehicle" (selected)="onSelected($event)" /></li>
+  } @empty {
+    <li>Sem veículos.</li>
+  }
+</ul>
+
+@if (selectedId() !== null) {
+  <p>Selecionado: {{ selectedId() }}</p>
+}
