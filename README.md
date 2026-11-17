@@ -1,59 +1,27 @@
-# VehiclesApp
+# Vehicles App
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.2.7.
+Painel de gestão de frota em **Angular 22** (projeto pessoal de aprendizagem), com API mock em JSON Server.
 
-## Development server
+## O que tem
+- Lista de veículos com **pesquisa** (debounce + `switchMap`) e filtro por estado
+- **Detalhe**, **criar** e **editar** (Reactive Forms com validação)
+- Rotas com **guard** e **lazy loading**
+- Estado numa **NgRx SignalStore**
+- **Angular Material**, `OnPush`, testes com Vitest (19 testes)
 
-To start a local development server, run:
-
+## Como correr
 ```bash
-ng serve
+npm install
+npm run api      # terminal 1: API mock em http://localhost:3000
+npm start        # terminal 2: app em http://localhost:4200
+npm test
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Decisões
+- **SignalStore** em vez de NgRx Store clássico: o estado é de uma só feature, não precisa de actions/reducers.
+- **`switchMap`** na pesquisa: cancela o pedido anterior.
+- **Lazy loading** do detalhe, do formulário e do login.
+- Estado **imutável** + `OnPush`.
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Próximo passo
+Trocar o JSON Server por uma API Spring Boot.
