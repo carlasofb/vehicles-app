@@ -1,10 +1,16 @@
-<div class="card">
-  <div class="info">
-    <strong>{{ title() }}</strong>
-    <small
-      >{{ vehicle().plate }} · {{ vehicle().year }} · {{ vehicle().mileageKm | number }} km</small
-    >
-  </div>
-  <span [class]="'badge ' + vehicle().status">{{ statusLabel() }}</span>
-  <button type="button" (click)="selected.emit(vehicle().id)">Ver detalhe</button>
-</div>
+<mat-card appearance="outlined">
+  <mat-card-header>
+    <mat-card-title>{{ title() }}</mat-card-title>
+    <mat-card-subtitle>
+      {{ vehicle().plate }} · {{ vehicle().year }} · {{ vehicle().mileageKm | number }} km
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <span [class]="'badge ' + vehicle().status">{{ statusLabel() }}</span>
+  </mat-card-content>
+  <mat-card-actions>
+    <button matButton="outlined" type="button" (click)="selected.emit(vehicle().id)">
+      Ver detalhe
+    </button>
+  </mat-card-actions>
+</mat-card>

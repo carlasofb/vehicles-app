@@ -1,12 +1,12 @@
-<header>
+<mat-toolbar>
   <h1>Frota</h1>
-  <nav>
-    <a routerLink="/vehicles">Veículos</a>
-    @if (auth.loggedIn()) {
-      <button type="button" (click)="auth.logout()">Sair</button>
-    }
-  </nav>
-</header>
+  <a matButton routerLink="/vehicles">Veículos</a>
+  <span class="spacer"></span>
+  @if (auth.loggedIn()) {
+    <button matButton type="button" (click)="auth.logout()">Sair</button>
+  }
+</mat-toolbar>
+
 <main>
   <router-outlet />
 </main>

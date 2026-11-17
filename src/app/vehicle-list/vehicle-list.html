@@ -1,12 +1,14 @@
-<a routerLink="/vehicles/new">Novo veículo</a>
+<a matButton="filled" routerLink="/vehicles/new">Novo veículo</a>
 
-<label for="search">Pesquisar</label>
-<input
-  id="search"
-  type="search"
-  [formControl]="searchControl"
-  placeholder="Matrícula, marca ou modelo…"
-/>
+<mat-form-field appearance="outline">
+  <mat-label>Pesquisar</mat-label>
+  <input
+    matInput
+    type="search"
+    [formControl]="searchControl"
+    placeholder="Matrícula, marca ou modelo…"
+  />
+</mat-form-field>
 
 <label for="status">Estado</label>
 <select id="status" [value]="store.status()" (change)="onStatus($event)">

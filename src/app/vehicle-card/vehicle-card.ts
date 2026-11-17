@@ -1,5 +1,14 @@
 import { DecimalPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
+import { MatButton } from '@angular/material/button';
+import {
+  MatCard,
+  MatCardActions,
+  MatCardContent,
+  MatCardHeader,
+  MatCardSubtitle,
+  MatCardTitle,
+} from '@angular/material/card';
 import { Vehicle, VehicleStatus } from '../vehicle.model';
 
 const STATUS_LABELS: Record<VehicleStatus, string> = {
@@ -9,7 +18,16 @@ const STATUS_LABELS: Record<VehicleStatus, string> = {
 };
 
 @Component({
-  imports: [DecimalPipe],
+  imports: [
+    DecimalPipe,
+    MatButton,
+    MatCard,
+    MatCardHeader,
+    MatCardTitle,
+    MatCardSubtitle,
+    MatCardContent,
+    MatCardActions,
+  ],
   selector: 'app-vehicle-card',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './vehicle-card.css',
