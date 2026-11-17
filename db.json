@@ -71,6 +71,15 @@
       "year": 2018,
       "status": "in_service",
       "mileageKm": 121000
+    },
+    {
+      "plate": "AA-12-BB",
+      "brand": "Ford1",
+      "model": "Fiesta",
+      "year": 2026,
+      "status": "available",
+      "mileageKm": 0,
+      "id": 9
     }
   ]
 }

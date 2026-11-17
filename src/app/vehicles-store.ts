@@ -36,6 +36,14 @@ export const VehiclesStore = signalStore(
     setStatus(status: StatusFilter) {
       patchState(store, { status });
     },
+    // depois de criar/editar: atualiza a lista sem voltar a pedir tudo ao servidor
+    upsert(vehicle: Vehicle) {
+      patchState(store, (state) => ({
+        vehicles: state.vehicles.some((v) => v.id === vehicle.id)
+          ? state.vehicles.map((v) => (v.id === vehicle.id ? vehicle : v))
+          : [...state.vehicles, vehicle],
+      }));
+    },
     // recebe um valor, um signal ou um Observable; o switchMap cancela o pedido anterior
     search: rxMethod<string>(
       pipe(

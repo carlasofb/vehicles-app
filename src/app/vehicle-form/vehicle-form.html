@@ -1,0 +1,98 @@
+<h2>{{ id() ? 'Editar veículo' : 'Novo veículo' }}</h2>
+
+<form [formGroup]="form" (ngSubmit)="save()" novalidate>
+  @let plate = form.controls.plate;
+  <div class="field">
+    <label for="plate">Matrícula</label>
+    <input
+      id="plate"
+      formControlName="plate"
+      placeholder="AA-12-BB"
+      [attr.aria-invalid]="plate.touched && plate.invalid"
+      [attr.aria-describedby]="plate.touched && plate.invalid ? 'plate-error' : null"
+    />
+    @if (plate.touched && plate.invalid) {
+      <small id="plate-error" role="alert">
+        @if (plate.errors?.['required']) {
+          Indica a matrícula.
+        } @else {
+          Formato esperado: AA-12-BB (maiúsculas).
+        }
+      </small>
+    }
+  </div>
+
+  @let brand = form.controls.brand;
+  <div class="field">
+    <label for="brand">Marca</label>
+    <input
+      id="brand"
+      formControlName="brand"
+      [attr.aria-invalid]="brand.touched && brand.invalid"
+      [attr.aria-describedby]="brand.touched && brand.invalid ? 'brand-error' : null"
+    />
+    @if (brand.touched && brand.invalid) {
+      <small id="brand-error" role="alert">Indica a marca.</small>
+    }
+  </div>
+
+  @let model = form.controls.model;
+  <div class="field">
+    <label for="model">Modelo</label>
+    <input
+      id="model"
+      formControlName="model"
+      [attr.aria-invalid]="model.touched && model.invalid"
+      [attr.aria-describedby]="model.touched && model.invalid ? 'model-error' : null"
+    />
+    @if (model.touched && model.invalid) {
+      <small id="model-error" role="alert">Indica o modelo.</small>
+    }
+  </div>
+
+  @let year = form.controls.year;
+  <div class="field">
+    <label for="year">Ano</label>
+    <input
+      id="year"
+      type="number"
+      formControlName="year"
+      [attr.aria-invalid]="year.touched && year.invalid"
+      [attr.aria-describedby]="year.touched && year.invalid ? 'year-error' : null"
+    />
+    @if (year.touched && year.invalid) {
+      <small id="year-error" role="alert">Indica um ano entre 1990 e {{ maxYear }}.</small>
+    }
+  </div>
+
+  <div class="field">
+    <label for="status">Estado</label>
+    <select id="status" formControlName="status">
+      @for (s of statuses; track s.value) {
+        <option [value]="s.value">{{ s.label }}</option>
+      }
+    </select>
+  </div>
+
+  @let mileage = form.controls.mileageKm;
+  <div class="field">
+    <label for="mileage">Quilómetros</label>
+    <input
+      id="mileage"
+      type="number"
+      formControlName="mileageKm"
+      [attr.aria-invalid]="mileage.touched && mileage.invalid"
+      [attr.aria-describedby]="mileage.touched && mileage.invalid ? 'mileage-error' : null"
+    />
+    @if (mileage.touched && mileage.invalid) {
+      <small id="mileage-error" role="alert">Indica um valor igual ou superior a 0.</small>
+    }
+  </div>
+
+  @if (error()) {
+    <p role="alert">{{ error() }}</p>
+  }
+
+  <button type="submit" [disabled]="saving()">Guardar</button>
+  <a routerLink="/vehicles">Cancelar</a>
+</form>

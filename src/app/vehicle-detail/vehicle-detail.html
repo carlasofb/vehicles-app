@@ -12,6 +12,7 @@
     <dt>Estado</dt>
     <dd>{{ v.status }}</dd>
   </dl>
+  <a [routerLink]="['/vehicles', v.id, 'edit']">Editar</a>
 } @else if (vehicle() === null) {
   <p role="alert">Veículo não encontrado.</p>
 } @else {

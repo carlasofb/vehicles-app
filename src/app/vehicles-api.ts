@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Service, inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Vehicle } from './vehicle.model';
+import { Vehicle, VehicleInput } from './vehicle.model';
 
 @Service()
 export class VehiclesApi {
@@ -20,5 +20,13 @@ export class VehiclesApi {
 
   getById(id: number): Observable<Vehicle> {
     return this.http.get<Vehicle>(`${this.baseUrl}/${id}`);
+  }
+
+  create(vehicle: VehicleInput): Observable<Vehicle> {
+    return this.http.post<Vehicle>(this.baseUrl, vehicle);
+  }
+
+  update(id: number, vehicle: VehicleInput): Observable<Vehicle> {
+    return this.http.put<Vehicle>(`${this.baseUrl}/${id}`, vehicle);
   }
 }

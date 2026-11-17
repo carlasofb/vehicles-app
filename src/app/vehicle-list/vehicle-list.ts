@@ -1,12 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { debounceTime, distinctUntilChanged, startWith } from 'rxjs';
 import { VehicleCard } from '../vehicle-card/vehicle-card';
 import { StatusFilter, VehiclesStore } from '../vehicles-store';
 
 @Component({
-  imports: [VehicleCard, ReactiveFormsModule],
+  imports: [VehicleCard, ReactiveFormsModule, RouterLink],
   selector: 'app-vehicle-list',
   styleUrl: './vehicle-list.css',
   templateUrl: './vehicle-list.html',

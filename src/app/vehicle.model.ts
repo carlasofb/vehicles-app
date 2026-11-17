@@ -9,3 +9,6 @@ export interface Vehicle {
   status: VehicleStatus;
   mileageKm: number;
 }
+
+// o que o formulário envia: um veículo sem id (o servidor atribui-o)
+export type VehicleInput = Omit<Vehicle, 'id'>;
