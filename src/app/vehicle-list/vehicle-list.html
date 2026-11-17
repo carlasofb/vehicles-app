@@ -6,13 +6,22 @@
   placeholder="Matrícula, marca ou modelo…"
 />
 
-@if (loading()) {
+<label for="status">Estado</label>
+<select id="status" [value]="store.status()" (change)="onStatus($event)">
+  <option value="all">Todos</option>
+  <option value="available">Disponível</option>
+  <option value="in_service">Em serviço</option>
+  <option value="maintenance">Em manutenção</option>
+</select>
+
+@if (store.loading()) {
   <p>A carregar…</p>
-} @else if (error()) {
-  <p role="alert">{{ error() }}</p>
+} @else if (store.error()) {
+  <p role="alert">{{ store.error() }}</p>
 } @else {
+  <p>{{ store.visibleVehicles().length }} de {{ store.total() }} veículos</p>
   <ul class="list">
-    @for (vehicle of vehicles(); track vehicle.id) {
+    @for (vehicle of store.visibleVehicles(); track vehicle.id) {
       <li><app-vehicle-card [vehicle]="vehicle" (selected)="onSelected($event)" /></li>
     } @empty {
       <li>Nenhum resultado.</li>

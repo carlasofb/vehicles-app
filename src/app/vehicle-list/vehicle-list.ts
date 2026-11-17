@@ -1,19 +1,9 @@
-import { Component, inject, signal } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { Component, inject } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import {
-  catchError,
-  debounceTime,
-  distinctUntilChanged,
-  of,
-  startWith,
-  switchMap,
-  tap,
-} from 'rxjs';
-import { Vehicle } from '../vehicle.model';
+import { debounceTime, distinctUntilChanged, startWith } from 'rxjs';
 import { VehicleCard } from '../vehicle-card/vehicle-card';
-import { VehiclesApi } from '../vehicles-api';
+import { StatusFilter, VehiclesStore } from '../vehicles-store';
 
 @Component({
   imports: [VehicleCard, ReactiveFormsModule],
@@ -22,34 +12,25 @@ import { VehiclesApi } from '../vehicles-api';
   templateUrl: './vehicle-list.html',
 })
 export class VehicleList {
-  private readonly api = inject(VehiclesApi);
+  protected readonly store = inject(VehiclesStore);
   private readonly router = inject(Router);
 
-  searchControl = new FormControl('', { nonNullable: true });
-  loading = signal(false);
-  error = signal<string | null>(null);
+  // o termo vem da store: ao voltar do detalhe, a pesquisa mantém-se
+  searchControl = new FormControl(this.store.term(), { nonNullable: true });
 
-  vehicles = toSignal(
-    this.searchControl.valueChanges.pipe(
-      debounceTime(300),
-      distinctUntilChanged(),
-      startWith(''),
-      tap(() => {
-        this.loading.set(true);
-        this.error.set(null);
-      }),
-      switchMap((term) =>
-        this.api.search(term).pipe(
-          catchError(() => {
-            this.error.set('Não foi possível carregar os veículos.');
-            return of([] as Vehicle[]);
-          }),
-        ),
+  constructor() {
+    this.store.search(
+      this.searchControl.valueChanges.pipe(
+        debounceTime(300),
+        distinctUntilChanged(),
+        startWith(this.searchControl.value),
       ),
-      tap(() => this.loading.set(false)),
-    ),
-    { initialValue: [] as Vehicle[] },
-  );
+    );
+  }
+
+  onStatus(event: Event) {
+    this.store.setStatus((event.target as HTMLSelectElement).value as StatusFilter);
+  }
 
   onSelected(id: number) {
     this.router.navigate(['/vehicles', id]);
