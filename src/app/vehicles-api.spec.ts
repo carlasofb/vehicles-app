@@ -3,7 +3,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { VehiclesApi } from './vehicles-api';
 
-const URL = 'http://localhost:3000/vehicles';
+const URL = 'http://localhost:8080/api/v1/vehicles';
 
 describe('VehiclesApi', () => {
   let api: VehiclesApi;

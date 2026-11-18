@@ -4,7 +4,7 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { provideRouter } from '@angular/router';
 import { VehicleDetail } from './vehicle-detail';
 
-const URL = 'http://localhost:3000/vehicles';
+const URL = 'http://localhost:8080/api/v1/vehicles';
 
 describe('VehicleDetail', () => {
   let http: HttpTestingController;

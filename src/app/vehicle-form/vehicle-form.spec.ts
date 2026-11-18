@@ -4,7 +4,7 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { Router, provideRouter } from '@angular/router';
 import { VehicleForm } from './vehicle-form';
 
-const URL = 'http://localhost:3000/vehicles';
+const URL = 'http://localhost:8080/api/v1/vehicles';
 const valid = {
   plate: 'AA-12-BB',
   brand: 'Renault',

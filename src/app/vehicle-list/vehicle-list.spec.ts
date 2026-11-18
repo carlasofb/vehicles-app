@@ -5,7 +5,7 @@ import { provideRouter } from '@angular/router';
 import { Vehicle } from '../vehicle.model';
 import { VehicleList } from './vehicle-list';
 
-const URL = 'http://localhost:3000/vehicles';
+const URL = 'http://localhost:8080/api/v1/vehicles';
 const vehicle = (id: number, status: Vehicle['status']): Vehicle => ({
   id,
   plate: `AA-0${id}-BB`,

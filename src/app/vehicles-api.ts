@@ -6,7 +6,8 @@ import { Vehicle, VehicleInput } from './vehicle.model';
 @Service()
 export class VehiclesApi {
   private readonly http = inject(HttpClient);
-  private readonly baseUrl = 'http://localhost:3000/vehicles';
+  // private readonly baseUrl = 'http://localhost:3000/vehicles';
+  private readonly baseUrl = 'http://localhost:8080/api/v1/vehicles';
 
   getAll(): Observable<Vehicle[]> {
     return this.http.get<Vehicle[]>(this.baseUrl);
