@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, input, signal } from '@angular/core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -82,8 +83,12 @@ export class VehicleForm {
         this.store.upsert(vehicle);
         this.router.navigate(['/vehicles', vehicle.id]);
       },
-      error: () => {
-        this.error.set('Não foi possível guardar o veículo.');
+      error: (err: HttpErrorResponse) => {
+        this.error.set(
+          err.status === 409
+            ? 'Já existe um veículo com essa matrícula.'
+            : 'Não foi possível guardar o veículo.',
+        );
         this.saving.set(false);
       },
     });
