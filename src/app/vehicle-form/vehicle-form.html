@@ -2,97 +2,69 @@
 
 <form [formGroup]="form" (ngSubmit)="save()" novalidate>
   @let plate = form.controls.plate;
-  <div class="field">
-    <label for="plate">Matrícula</label>
-    <input
-      id="plate"
-      formControlName="plate"
-      placeholder="AA-12-BB"
-      [attr.aria-invalid]="plate.touched && plate.invalid"
-      [attr.aria-describedby]="plate.touched && plate.invalid ? 'plate-error' : null"
-    />
+  <mat-form-field appearance="outline" class="field">
+    <mat-label>Matrícula</mat-label>
+    <input matInput formControlName="plate" placeholder="AA-12-BB" />
     @if (plate.touched && plate.invalid) {
-      <small id="plate-error" role="alert">
+      <mat-error role="alert">
         @if (plate.errors?.['required']) {
           Indica a matrícula.
         } @else {
           Formato esperado: AA-12-BB (maiúsculas).
         }
-      </small>
+      </mat-error>
     }
-  </div>
+  </mat-form-field>
 
   @let brand = form.controls.brand;
-  <div class="field">
-    <label for="brand">Marca</label>
-    <input
-      id="brand"
-      formControlName="brand"
-      [attr.aria-invalid]="brand.touched && brand.invalid"
-      [attr.aria-describedby]="brand.touched && brand.invalid ? 'brand-error' : null"
-    />
+  <mat-form-field appearance="outline" class="field">
+    <mat-label>Marca</mat-label>
+    <input matInput formControlName="brand" />
     @if (brand.touched && brand.invalid) {
-      <small id="brand-error" role="alert">Indica a marca.</small>
+      <mat-error role="alert">Indica a marca.</mat-error>
     }
-  </div>
+  </mat-form-field>
 
   @let model = form.controls.model;
-  <div class="field">
-    <label for="model">Modelo</label>
-    <input
-      id="model"
-      formControlName="model"
-      [attr.aria-invalid]="model.touched && model.invalid"
-      [attr.aria-describedby]="model.touched && model.invalid ? 'model-error' : null"
-    />
+  <mat-form-field appearance="outline" class="field">
+    <mat-label>Modelo</mat-label>
+    <input matInput formControlName="model" />
     @if (model.touched && model.invalid) {
-      <small id="model-error" role="alert">Indica o modelo.</small>
+      <mat-error role="alert">Indica o modelo.</mat-error>
     }
-  </div>
+  </mat-form-field>
 
   @let year = form.controls.year;
-  <div class="field">
-    <label for="year">Ano</label>
-    <input
-      id="year"
-      type="number"
-      formControlName="year"
-      [attr.aria-invalid]="year.touched && year.invalid"
-      [attr.aria-describedby]="year.touched && year.invalid ? 'year-error' : null"
-    />
+  <mat-form-field appearance="outline" class="field">
+    <mat-label>Ano</mat-label>
+    <input matInput type="number" formControlName="year" />
     @if (year.touched && year.invalid) {
-      <small id="year-error" role="alert">Indica um ano entre 1990 e {{ maxYear }}.</small>
+      <mat-error role="alert">Indica um ano entre 1990 e {{ maxYear }}.</mat-error>
     }
-  </div>
+  </mat-form-field>
 
-  <div class="field">
-    <label for="status">Estado</label>
-    <select id="status" formControlName="status">
+  <mat-form-field appearance="outline" class="field">
+    <mat-label>Estado</mat-label>
+    <mat-select formControlName="status">
       @for (s of statuses; track s.value) {
-        <option [value]="s.value">{{ s.label }}</option>
+        <mat-option [value]="s.value">{{ s.label }}</mat-option>
       }
-    </select>
-  </div>
+    </mat-select>
+  </mat-form-field>
 
   @let mileage = form.controls.mileageKm;
-  <div class="field">
-    <label for="mileage">Quilómetros</label>
-    <input
-      id="mileage"
-      type="number"
-      formControlName="mileageKm"
-      [attr.aria-invalid]="mileage.touched && mileage.invalid"
-      [attr.aria-describedby]="mileage.touched && mileage.invalid ? 'mileage-error' : null"
-    />
+  <mat-form-field appearance="outline" class="field">
+    <mat-label>Quilómetros</mat-label>
+    <input matInput type="number" formControlName="mileageKm" />
     @if (mileage.touched && mileage.invalid) {
-      <small id="mileage-error" role="alert">Indica um valor igual ou superior a 0.</small>
+      <mat-error role="alert">Indica um valor igual ou superior a 0.</mat-error>
     }
-  </div>
+  </mat-form-field>
 
   @if (error()) {
     <p role="alert">{{ error() }}</p>
   }
 
-  <button type="submit" [disabled]="saving()">Guardar</button>
-  <a routerLink="/vehicles">Cancelar</a>
+  <button matButton="filled" type="submit" [disabled]="saving()">Guardar</button>
+  <a matButton routerLink="/vehicles">Cancelar</a>
 </form>
