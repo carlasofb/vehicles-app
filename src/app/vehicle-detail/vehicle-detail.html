@@ -13,6 +13,11 @@
     <dd>{{ v.status }}</dd>
   </dl>
   <a [routerLink]="['/vehicles', v.id, 'edit']">Editar</a>
+  <br /><br />
+  <button (click)="delete(v.id)" [disabled]="deleting()">Eliminar</button>
+  @if (deleteError()) {
+    <p role="alert">{{ deleteError() }}</p>
+  }
 } @else if (vehicle() === null) {
   <p role="alert">Veículo não encontrado.</p>
 } @else {

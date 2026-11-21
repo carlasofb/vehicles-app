@@ -30,4 +30,8 @@ export class VehiclesApi {
   update(id: number, vehicle: VehicleInput): Observable<Vehicle> {
     return this.http.put<Vehicle>(`${this.baseUrl}/${id}`, vehicle);
   }
+
+  delete(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/${id}`);
+  }
 }
